@@ -17,5 +17,5 @@ MUM&Co is able to detect: <br/>
 Deletions (unique and mobile), insertions (novel and mobile) and tandem duplications (>50bp) <br/>
 Inversions and translocations (>1kb)
 
-Output is a tabulated file containing columns is this order:
+Output is a tabulated file containing columns is this order: <br/>
 Reference chromosome; Query chromosome; reference start; reference end; size; SV type; query start; query end.
