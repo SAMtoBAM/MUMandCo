@@ -1,6 +1,7 @@
 ![alt text](https://github.com/SAMtoBAM/MUMandCo/blob/master/MUM%26Co.png)
 
 MUM&Co is a simple bash script that uses Whole Genome Alignment information provided by MUMmer (v3 and v4) to detect variants. <br/>
+
 MUM&Co is able to detect: <br/>
 Deletions (unique and mobile), insertions (novel and mobile) and tandem duplications (>50bp) <br/>
 Inversions and translocations (>1kb)
