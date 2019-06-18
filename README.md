@@ -10,7 +10,7 @@ MUM&Co requires two steps prior to SV detection:
 
 1. Alignment to the reference which will be used to call SVs and renaming based on paired chromosomes <br/>
 Contigs corresponding to 2 reference chromosomes should have all reference chromsome names split by an underscore '_' <br/> 
-If multiple Contigs correspond to the same chromosome, they can also be split by '_' then given a unique identifier such as '*_contig1' and *_contig2'
+If multiple Contigs correspond to the same chromosome, they can also be split by '_' then given a unique identifier such as '*_contig1' and *_contig2' <br/>
 Tools such as RaGOO and Ragout can do this alongside scaffolding of contigs
 
 2. Update bash file with: <br/> 
