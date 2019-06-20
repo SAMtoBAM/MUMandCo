@@ -1,4 +1,4 @@
-![alt text](https://github.com/SAMtoBAM/MUMandCo/blob/master/MUM%26Co.png)
+![alt text](https://github.com/SAMtoBAM/MUMandCo/blob/master/MUM%26Co2.png)
 
 MUM&Co is a simple bash script that uses Whole Genome Alignment information provided by MUMmer (v3 and v4) to detect variants. <br/>
 
