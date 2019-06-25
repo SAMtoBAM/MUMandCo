@@ -44,7 +44,7 @@ e.g. <br/>
          alignments_folder="DEL100_alignments" 
 
          ##output file name for SV detection## 
-         prefix="DEl100_test" 
+         prefix="DEL100_test" 
 
 4. Run mumandco.sh script. <br/>
 Alignments, a summary file and a file with all SVs will be placed in a folder with the chosen prefix.
