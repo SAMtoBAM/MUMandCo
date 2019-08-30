@@ -34,3 +34,8 @@ Output folder contains:<br/>
 Folder with alignments used for SV detection<br/>
 Txt file with summary of SVs detected<br/>
 and a tsv file with all the detected SVs.
+
+
+Additionally there is an option to search for insertion and deletion events in the reference in order to label them as either mobile or novel events.<br/>
+This requires BLAST and samtools installation.<br/>
+In order to use this feature, edit the bash script to change 'blast_step="no"' to 'yes'
