@@ -3,21 +3,16 @@
 MUM&Co is a simple bash script that uses Whole Genome Alignment information provided by MUMmer (v3 and v4) to detect variants. <br/>
 
 MUM&Co is able to detect: <br/>
-Deletions (unique and mobile), insertions (novel and mobile) and tandem duplications (>50bp) <br/>
+Deletions (novel and mobile), insertions (novel and mobile) and tandem duplications (>50bp) <br/>
 Inversions and translocations (>1kb)
 
 MUM&Co requires installation of MUMmer3 or 4.<br/>
 MUM&Co will look for the MUMmer toolkit's scripts path using 'which xxxxx'.<br/>
 This path can be editted directly in the script if required.
 
-MUM&Co requires 1 step prior to SV detection: <br/>
+In order to help with downstream analysis: <br/>
 Renaming and re-orientation of the query genome contigs to correspond to their reference counterparts <br/>
-Contigs corresponding to 2 reference chromosomes should have all reference chromsome names split by an underscore<br/>
-e.g. 'chromosome2_3' <br/> 
-If multiple Contigs correspond to the same chromosome, they should be split by an underscore and a unique identifier<br/>
-e.g. 'chromosome2_contig1' and chromosome2_contig2' <br/>
 Tools such as RaGOO and Ragout can do this alongside scaffolding of contigs (this is not currently recommended for short-read based assemblies).<br/>
-Please verify renaming and reorientation
 
 Options: <br/>
 
