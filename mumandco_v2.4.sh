@@ -414,7 +414,7 @@ do
 done
 cat *.transloc_pairing | sort -k14,14 -k1V > $prefix.transloc_candidate_alignments
 rm *.transloc_pairing
-
+rm transloc_list.txt
 
 ###remove smaller false translocations that lie inside the larger true fragment then concatenate again
 cat $prefix.transloc_candidate_alignments | awk 'BEGIN{chr=""; start=""; stop=""}; \
