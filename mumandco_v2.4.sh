@@ -806,16 +806,15 @@ echo ""
 ##therefore remove any deletion or insertion calls with exactly the same coords in ref and query##
 tac ""$prefix"_ref".gaps_50 ""$prefix"_query".gaps_50 |\
 	sort -k1,1 -k3V |\
-		awk 'BEGIN{startr=""; endr=""; startq=""; endq=""} \
-					{if(startr==$3 && endr==$4 && startq==$7 && endq==$8 || startr==$3 && endr==$4 && startq==$8 && endq==$7 || startr==$4 && endr==$3 && startq==$7 && endq==$8 || startr==$4 && endr==$3 && startq==$8 && endq==$7) {print $0"\texact"}\
-					else {print $0; startr=$3; endr=$4; startq=$7; endq=$8}}' >  $prefix.gaps_50filter_temp
+		awk 'BEGIN{startr=""; endr=""; startq=""; endq=""} {if(startr==$3 && endr==$4 && startq==$7 && endq==$8 || startr==$3 && endr==$4 && startq==$8 && endq==$7 || startr==$4 && endr==$3 && startq==$7 && endq==$8 || startr==$4 && endr==$3 && startq==$8 && endq==$7) {print $0"\texact\t"size} else {print $0; startr=$3; endr=$4; startq=$7; endq=$8; size=$5}}' >  $prefix.gaps_50filter_temp
+
 
 tac $prefix.gaps_50filter_temp |\
-	awk 'BEGIN{startr=""; endr=""; startq=""; endq=""} \
-					{if(startr==$3 && endr==$4 && startq==$7 && endq==$8 || startr==$3 && endr==$4 && startq==$8 && endq==$7 || startr==$4 && endr==$3 && startq==$7 && endq==$8 || startr==$4 && endr==$3 && startq==$8 && endq==$7) {print $0"\texact"}\
-					else {print $0; startr=$3; endr=$4; startq=$7; endq=$8}}' |\
-						sed '/exact/d' |\
-							sort -k1,1 -k3V > $prefix.gaps_50filtered
+	awk 'BEGIN{startr=""; endr=""; startq=""; endq=""} {if(startr==$3 && endr==$4 && startq==$7 && endq==$8 || startr==$3 && endr==$4 && startq==$8 && endq==$7 || startr==$4 && endr==$3 && startq==$7 && endq==$8 || startr==$4 && endr==$3 && startq==$8 && endq==$7) {print $0"\texact\t"size} else {print $0; startr=$3; endr=$4; startq=$7; endq=$8; size=$5}}' |\
+		awk '{if($9=="exact" && $5 > $10) {print $0"\t"$5-$10} else if($9=="exact" && $10 > $5) {print $0"\t"$10-$5} else {print $0}}' |\
+			awk '{if($11>5000) {print $0} else if($9!="exact"){print $0}}' |\
+				awk '{print $1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7"\t"$8}' |\
+					sort -k1,1 -k3V > $prefix.gaps_50filtered
 
 
 ##50bp calls do not have inversions YET, need to filter them using INDEL info as before MAYBE....##
@@ -842,16 +841,14 @@ cat $prefix.50bp_r | awk 'BEGIN{start=0; end=0} {if(start==$3 || end==$4) {print
 ##therefore remove any deletion or insertion calls with exactly the same coords in ref and query##
 tac ""$prefix"_ref".gaps_1000 ""$prefix"_query".gaps_1000 |\
 	sort -k1,1 -k3V |\
-		awk 'BEGIN{startr=""; endr=""; startq=""; endq=""} \
-					{if(startr==$3 && endr==$4 && startq==$7 && endq==$8 || startr==$3 && endr==$4 && startq==$8 && endq==$7 || startr==$4 && endr==$3 && startq==$7 && endq==$8 || startr==$4 && endr==$3 && startq==$8 && endq==$7) {print $0"\texact"}\
-					else {print $0; startr=$3; endr=$4; startq=$7; endq=$8}}' >  $prefix.gaps_1000filter_temp
+		awk 'BEGIN{startr=""; endr=""; startq=""; endq=""} {if(startr==$3 && endr==$4 && startq==$7 && endq==$8 || startr==$3 && endr==$4 && startq==$8 && endq==$7 || startr==$4 && endr==$3 && startq==$7 && endq==$8 || startr==$4 && endr==$3 && startq==$8 && endq==$7) {print $0"\texact\t"size} else {print $0; startr=$3; endr=$4; startq=$7; endq=$8; size=$5}}' >  $prefix.gaps_1000filter_temp
 
 tac $prefix.gaps_1000filter_temp |\
-	awk 'BEGIN{startr=""; endr=""; startq=""; endq=""} \
-					{if(startr==$3 && endr==$4 && startq==$7 && endq==$8 || startr==$3 && endr==$4 && startq==$8 && endq==$7 || startr==$4 && endr==$3 && startq==$7 && endq==$8 || startr==$4 && endr==$3 && startq==$8 && endq==$7) {print $0"\texact"}\
-					else {print $0; startr=$3; endr=$4; startq=$7; endq=$8}}' |\
-						sed '/exact/d' |\
-							sort -k1,1 -k3V > $prefix.gaps_1000filtered
+	awk 'BEGIN{startr=""; endr=""; startq=""; endq=""} {if(startr==$3 && endr==$4 && startq==$7 && endq==$8 || startr==$3 && endr==$4 && startq==$8 && endq==$7 || startr==$4 && endr==$3 && startq==$7 && endq==$8 || startr==$4 && endr==$3 && startq==$8 && endq==$7) {print $0"\texact\t"size} else {print $0; startr=$3; endr=$4; startq=$7; endq=$8; size=$5}}' |\
+		awk '{if($9=="exact" && $5 > $10) {print $0"\t"$5-$10} else if($9=="exact" && $10 > $5) {print $0"\t"$10-$5} else {print $0}}' |\
+			awk '{if($11>5000) {print $0} else if($9!="exact"){print $0}}' |\
+				awk '{print $1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7"\t"$8}' |\
+					sort -k1,1 -k3V > $prefix.gaps_1000filtered
 
 cat $prefix.gaps_1000filtered ""$prefix"_ref".coords_dups_1000 $prefix.transloc_candidate_alignments6_fragments10000 $prefix.1000bp_inversionsclean | sort -k1,1 -k3V  > $prefix.1000bp
 
