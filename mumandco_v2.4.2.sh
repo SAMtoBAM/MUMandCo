@@ -412,21 +412,24 @@ do
 		cat ""$prefix"_ref".coordsg_matched_subtelofilt | awk -v chromosome="$chromosome" '{if($15==chromosome) print $0}' >$prefix.$chromosome.transloc_pairing
 	fi
 done
-cat *.transloc_pairing | sort -k14,14 -k1V > $prefix.transloc_candidate_alignments
-rm *.transloc_pairing
-rm transloc_list.txt
 
-###remove smaller false translocations that lie inside the larger true fragment then concatenate again
-cat $prefix.transloc_candidate_alignments | awk 'BEGIN{chr=""; start=""; stop=""}; \
+if [ -f *.transloc_pairing ]
+then
+	cat *.transloc_pairing | sort -k14,14 -k1V > $prefix.transloc_candidate_alignments
+	rm *.transloc_pairing
+	rm transloc_list.txt
+
+	###remove smaller false translocations that lie inside the larger true fragment then concatenate again
+	cat $prefix.transloc_candidate_alignments | awk 'BEGIN{chr=""; start=""; stop=""}; \
 										{if($14==chr && $1>start && $2<stop) {} \
 										else if($14==chr) {print $0; chr=$14; start=$1; stop=$2} \
 										else {print $0; chr=$14; start=$1; stop=$2}} \
 										{if(chr=="") {print $0; chr=$14; start=$1; stop=$2}}' \
 										> $prefix.transloc_candidate_alignments2
 
-###need to fix for INVERTED SEGMENTS!!!!!!!!!!!!
+	###need to fix for INVERTED SEGMENTS!!!!!!!!!!!!
 
-cat $prefix.transloc_candidate_alignments2 | awk 'BEGIN{chrr=""; chrq=""; startr=0; endr=0; startq=0; endq=0; link=0}\
+	cat $prefix.transloc_candidate_alignments2 | awk 'BEGIN{chrr=""; chrq=""; startr=0; endr=0; startq=0; endq=0; link=0}\
 												{if(chrq=="") {chrr=$14; chrq=$15; startr=$1; endr=$2; startq=$3; endq=$4}\
 												else if(chrr==$14 && chrq==$15) {endr=$2; endq=$4}\
 												else if(chrr==$14 && chrq!=$15) {print $0"\t"chrr"\t"chrq"\t"startr"\t"endr"\t"endr-startr"\ttransloc\t"startq"\t"endq; startr=$1; endr=$2; startq=$3; endq=$4; chrq=$15}\
@@ -436,33 +439,38 @@ cat $prefix.transloc_candidate_alignments2 | awk 'BEGIN{chrr=""; chrq=""; startr
 												> $prefix.transloc_candidate_alignments3_fragments
 
 
-##remove many small fragments and join the large fragments which they broke"
-cat $prefix.transloc_candidate_alignments3_fragments | awk '{if($5< 10000) print $1"\t"$2"\t"$3"\t"$4"\t"$5"\ttransloc_10000"$6"\t"$7}' > ""$prefix"_ref".fragments_less10000
-cat $prefix.transloc_candidate_alignments3_fragments | awk '{if($5>=10000) print $0}'> $prefix.transloc_candidate_alignments4_fragments10000
+	##remove many small fragments and join the large fragments which they broke"
+	cat $prefix.transloc_candidate_alignments3_fragments | awk '{if($5< 10000) print $1"\t"$2"\t"$3"\t"$4"\t"$5"\ttransloc_10000"$6"\t"$7}' > ""$prefix"_ref".fragments_less10000
+	cat $prefix.transloc_candidate_alignments3_fragments | awk '{if($5>=10000) print $0}'> $prefix.transloc_candidate_alignments4_fragments10000
 
-##AGAIN remove smaller false translocations that lie inside the larger true fragment then concatenate again
-cat $prefix.transloc_candidate_alignments4_fragments10000 | awk 'BEGIN{chr=""; start=""; stop=""}; \
-										{if($1==chr && $3>start && $4<stop) {} \
-										else if($1==chr) {print $0; chr=$1; start=$3; stop=$4} \
-										else {print $0; chr=$1; start=$3; stop=$4}} \
-										{if(chr=="") {print $0; chr=$1; start=$3; stop=$4}}' \
-										> $prefix.transloc_candidate_alignments5_fragments10000
+	##AGAIN remove smaller false translocations that lie inside the larger true fragment then concatenate again
+	cat $prefix.transloc_candidate_alignments4_fragments10000 | awk 'BEGIN{chr=""; start=""; stop=""}; \
+											{if($1==chr && $3>start && $4<stop) {} \
+											else if($1==chr) {print $0; chr=$1; start=$3; stop=$4} \
+											else {print $0; chr=$1; start=$3; stop=$4}} \
+											{if(chr=="") {print $0; chr=$1; start=$3; stop=$4}}' \
+											> $prefix.transloc_candidate_alignments5_fragments10000
 
-cat $prefix.transloc_candidate_alignments5_fragments10000 | awk 'BEGIN{chrr=""; chrq=""; startr=0; endr=0; startq=0; endq=0; link=0}\
-												{if(chrq=="") {chrr=$1; chrq=$2; startr=$3; endr=$4; startq=$7; endq=$8}\
-												else if(chrr==$1 && chrq==$2) {endr=$4; endq=$8}\
-												else if(chrr==$1 && chrq!=$2) {print $0"\t"chrr"\t"chrq"\t"startr"\t"endr"\t"endr-startr"\ttransloc\t"startq"\t"endq; startr=$3; endr=$4; startq=$7; endq=$8; chrq=$2}\
-												else if(chrr!=$1){print $0"\t"chrr"\t"chrq"\t"startr"\t"endr"\t"endr-startr"\ttransloc\t"startq"\t"endq; startr=$3; endr=$4; startq=$7; endq=$8; chrr=$1; chrq=$2}}\
-													END{print $0"\t"chrr"\t"chrq"\t"startr"\t"endr"\t"endr-startr"\ttransloc\t"startq"\t"endq}'|\
-												awk '{print $9"\t"$10"\t"$11"\t"$12"\t"$13"\t"$14"\t"$15"\t"$16}' \
-												> $prefix.transloc_candidate_alignments6_fragments10000
+	cat $prefix.transloc_candidate_alignments5_fragments10000 | awk 'BEGIN{chrr=""; chrq=""; startr=0; endr=0; startq=0; endq=0; link=0}\
+													{if(chrq=="") {chrr=$1; chrq=$2; startr=$3; endr=$4; startq=$7; endq=$8}\
+													else if(chrr==$1 && chrq==$2) {endr=$4; endq=$8}\
+													else if(chrr==$1 && chrq!=$2) {print $0"\t"chrr"\t"chrq"\t"startr"\t"endr"\t"endr-startr"\ttransloc\t"startq"\t"endq; startr=$3; endr=$4; startq=$7; endq=$8; chrq=$2}\
+													else if(chrr!=$1){print $0"\t"chrr"\t"chrq"\t"startr"\t"endr"\t"endr-startr"\ttransloc\t"startq"\t"endq; startr=$3; endr=$4; startq=$7; endq=$8; chrr=$1; chrq=$2}}\
+														END{print $0"\t"chrr"\t"chrq"\t"startr"\t"endr"\t"endr-startr"\ttransloc\t"startq"\t"endq}'|\
+													awk '{print $9"\t"$10"\t"$11"\t"$12"\t"$13"\t"$14"\t"$15"\t"$16}' \
+													> $prefix.transloc_candidate_alignments6_fragments10000
 
 
-rm $prefix.transloc_candidate_alignments
-rm $prefix.transloc_candidate_alignments2
-rm $prefix.transloc_candidate_alignments3_fragments
-rm $prefix.transloc_candidate_alignments4_fragments10000
-rm $prefix.transloc_candidate_alignments5_fragments10000
+	rm $prefix.transloc_candidate_alignments
+	rm $prefix.transloc_candidate_alignments2
+	rm $prefix.transloc_candidate_alignments3_fragments
+	rm $prefix.transloc_candidate_alignments4_fragments10000
+	rm $prefix.transloc_candidate_alignments5_fragments10000
+
+else
+	touch $prefix.transloc_candidate_alignments6_fragments10000
+	touch ${prefix}_ref.fragments_less10000
+fi
 
 #
 #rows=$(wc -l ""$prefix"_ref".fragments_big | awk '{print $1}')
@@ -980,7 +988,7 @@ cat $prefix.all_else $prefix.all_dup_ins_filtered | awk '!/mitochondrion/{print 
 
 
 ###REMVOING ALL INDELS BIGGER THAN 500kb###
-cat $prefix.filteredcalls | awk '{if($6 == "deletion" && $5 > 100000 || $6 == "insertion" && $5 > 100000) {} else print $0}' > $prefix.filteredcalls2
+cat $prefix.filteredcalls | awk '{if($6 == "deletion" && $5 > 100000 || $6 == "insertion" && $5 > 100000) {} else print $0}' | awk 'NF' > $prefix.filteredcalls2
 rm $prefix.filteredcalls
 mv $prefix.filteredcalls2 $prefix.filteredcalls
 
