@@ -413,7 +413,7 @@ do
 	fi
 done
 
-transloc_true=$( find . -maxdepth 1 -type f -name *.transloc_pairing | wc -l ) 
+transloc_true=$( find . -maxdepth 1 -type f -name '*.transloc_pairing' | wc -l ) 
 if [ $transloc_true -gt 0 ]
 then
 	cat *.transloc_pairing | sort -k14,14 -k1V > $prefix.transloc_candidate_alignments
