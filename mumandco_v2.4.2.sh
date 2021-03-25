@@ -1082,7 +1082,13 @@ then
 
 	cat $prefix.filteredcalls | awk '{if($6!="insertion" && $6!="deletion") print $0}' > $prefix.noINDEL
 	echo "ref_chr	query_chr	ref_start	ref_stop	size	SV_type	query_start	query_stop" > $prefix.SVs_all.tsv
-	cat $prefix.insertion_blast $prefix.deletion_blast $prefix.noINDEL | sort -k1,1 -k3V >> $prefix.SVs_all.tsv
+	if [ -f $prefix.insertion_blast ]; then
+		sort -k1,1 -k3V $prefix.insertion_blast >> $prefix.SVs_all.tsv
+	fi
+	if [ -f $prefix.deletion_blast ]; then
+		sort -k1,1 -k3V $prefix.deletion_blast >> $prefix.SVs_all.tsv
+	fi
+	sort -k1,1 -k3V $prefix.noINDEL >> $prefix.SVs_all.tsv
 	
 	rm query_segment.fa
 	rm ref_segment.fa
@@ -1172,8 +1178,8 @@ then
 		rm $prefix.deletions
 		rm $prefix.blast_in
 		rm $prefix.blast_del
-		rm $prefix.deletion_blast
-		rm $prefix.insertion_blast
+		rm -f $prefix.deletion_blast
+		rm -f $prefix.insertion_blast
 	fi
 fi
 
