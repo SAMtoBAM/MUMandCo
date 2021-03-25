@@ -30,9 +30,9 @@ Folder with alignments used for SV detection<br/>
 Txt file with summary of SVs detected<br/>
 and a tsv file with all the detected SVs.
 
-UPDATE:
+UPDATE: <br/>
 For those using MUMmer4 you can use the MUM&Co script '..MUMmer4_multithreads.sh' that contains an option for increasing the thread use of the nucmer alignments
-This can only be run if MUMmer4 is being used as MUMmer3 does not offer this option
+This can only be run if MUMmer4 is being used as MUMmer3 does not offer this option <br/>
 Options: <br/>
 
          -r or --reference_genome          path to reference genome
@@ -41,7 +41,7 @@ Options: <br/>
          -o or --output                    output prefix
          -t or --threads                   thread number
 
-Test run script (keep order of options):
+Test run script (keep order of options): <br/>
          
          bash mumandco_v*_MUMmer4_multithreads.sh -r ./yeast.tidy.fa -q ./yeast_tidy_DEL100.fa -g 12500000 -o DEL100_test -t 2
 
