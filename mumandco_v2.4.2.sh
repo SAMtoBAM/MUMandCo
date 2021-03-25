@@ -162,7 +162,7 @@ echo ""
 #													> ""$prefix"_query".coordsg_matched
 
 ##get average quality
-average_quality=$(tail -n +5 "$alignments_folder/""$prefix"_ref".delta_filter.coordsg" | awk '{sum+=$7} END{print sum/NR}')
+average_quality=$(tail -n +5 "$alignments_folder/""$prefix"_ref".delta_filter.coordsg" | awk '{sum+=$7} END{if(NR){print sum/NR}}')
 
 ### filter for alignment less than 10kb (limit on translocation size)
 ### filter for any alignment overlapping another with more than 50bp and with lower quality
@@ -244,7 +244,7 @@ tail -n +5 "$alignments_folder/""$prefix"_ref".delta_filter.coordsg" |\
 #
 
 ##filter any remaining alignments with less than (1.25 x standard deviation) less than the average of the remaining alignments
-average_quality=$(cat ""$prefix"_pre_list.txt" | awk '{sum+=$7} END{print sum/NR}')
+average_quality=$(cat ""$prefix"_pre_list.txt" | awk '{sum+=$7} END{if(NR){print sum/NR}}')
 
 if [[ "$average_quality" == "100" ]]
 	then
@@ -256,7 +256,7 @@ if [[ "$average_quality" == "100" ]]
 
 	else
 
-		stdev125=$(cat ""$prefix"_pre_list.txt" | awk '{sum=sum+$7 ; sumX2+=(($7)^2)} END{print 1.25*(sqrt(sumX2/(NR) - ((sum/NR)^2)))}')
+		stdev125=$(cat ""$prefix"_pre_list.txt" | awk '{sum=sum+$7 ; sumX2+=(($7)^2)} END{if(NR){print 1.25*(sqrt(sumX2/(NR) - ((sum/NR)^2)))}}')
 		quality_filt=$(echo $average_quality - $stdev125 | bc)
 		cat ""$prefix"_pre_list.txt" | awk -v quality_filt="$quality_filt" '{if($7 > quality_filt) print $14"\t"$15}' | sort | uniq > ""$prefix"_chromosome_pairs.txt"
 	
@@ -1116,7 +1116,7 @@ echo ""
 total=$(cat $prefix.filteredcalls | awk '{print $0}' | wc -l)
 total_del=$(cat $prefix.filteredcalls | awk '/deletion/{print $0}' | wc -l)
 total_ins=$(cat $prefix.filteredcalls | awk '/insertion/{print $0}' | wc -l)
-#total_INDELmean=$(cat $prefix.filteredcalls | awk 'BEGIN{sum=0} !/double/&&/deletion/||/insertion/{sum+=$5} END{print sum/NR}')
+#total_INDELmean=$(cat $prefix.filteredcalls | awk 'BEGIN{sum=0} !/double/&&/deletion/||/insertion/{sum+=$5} END{if(NR){print sum/NR}}')
 total_dup=$(cat $prefix.filteredcalls | awk '/duplication/{print $0}' | wc -l)
 total_inv=$(cat $prefix.filteredcalls | awk '/inversion/{print $0}' | wc -l)
 total_trans=$(cat $prefix.filteredcalls | awk '!/complicated/&&/transloc/{print $0}' | wc -l)
