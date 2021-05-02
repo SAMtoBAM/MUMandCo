@@ -5,6 +5,7 @@ VERSION 3 UPDATE <br/>
 Only uses MUMmer4 now and requires the thred count option <br/>
 Contains a VCF output file with all calls currently being imprecise <br/>
 Contains another output file containing the calls alongside the respective DNA impacted <br/>
+This new step requires samtools installation <br/>
 Now calls the reverse of tandem duplications, tandem contractions (>50bp) <br/>
 
 MUM&Co is able to detect: <br/>
