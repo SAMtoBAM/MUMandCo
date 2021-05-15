@@ -1191,7 +1191,7 @@ echo ""
 ###getting DNA associated with each variant and adding it to output
 cat ${prefix}.SVs_all.tsv | head -n1 > header.txt
 ##get insertion fragments from query assembly
-cat ${prefix}.SVs_all.tsv | grep -v "ref_chr" | awk '{if($6=="insertion") print $0}' | while read variant
+cat ${prefix}.SVs_all.tsv | grep -v "ref_chr" | awk '{if($6 ~ "insertion" || $6 ~ "contraction") print $0}' | while read variant
 do
 	location=$( echo $variant | awk '{print $2":"$7"-"$8}' )
 	fragment=$( samtools faidx ${query_assembly} $location | grep -v ">" | tr -d '\n')
