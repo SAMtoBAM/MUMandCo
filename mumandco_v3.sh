@@ -1198,7 +1198,7 @@ do
 	echo $variant" "$fragment | sed 's/ /\t/g' >> ${prefix}.SVs_all.withfragmentTEMP.tsv
 done
 # get DNA for all other variants from reference
-cat ${prefix}.SVs_all.tsv | grep -v "ref_chr" | awk '{if($6!="insertion") print $0}' | while read variant
+cat ${prefix}.SVs_all.tsv | grep -v "ref_chr" | awk '{if($6 !~ "insertion" && $6 !~ "contraction) print $0}' | while read variant
 do
 	location=$( echo $variant | awk '{print $1":"$3"-"$4}' )
 	fragment=$( samtools faidx ${reference_assembly} $location | grep -v ">" | tr -d '\n')
