@@ -1236,6 +1236,7 @@ echo "##INFO=<ID=SVTYPE,Number=1,Type=String,Description="Type of structural var
 echo "##INFO=<ID=qCHR,Number=1,Type=String,Description="Chromosome in query genome">" >> ${prefix}.SVs_all.vcf
 echo "##INFO=<ID=qSTART,Number=1,Type=Integer,Description="Start position in query genome">" >> ${prefix}.SVs_all.vcf
 echo "##INFO=<ID=qEND,Number=1,Type=Integer,Description="End position in query genome">" >> ${prefix}.SVs_all.vcf
+echo "##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype>">" >> ${prefix}.SVs_all.vcf
 echo "##ALT=<ID=DEL,Description="Deletion">" >> ${prefix}.SVs_all.vcf
 echo "##ALT=<ID=DUP:TANDEM,Description="Tandem Duplication">" >> ${prefix}.SVs_all.vcf
 echo "##ALT=<ID=INS,Description="Insertion of novel sequence">" >> ${prefix}.SVs_all.vcf
