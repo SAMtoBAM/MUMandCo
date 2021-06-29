@@ -9,7 +9,7 @@ This new step requires samtools installation <br/>
 Now calls the reverse of tandem duplications, tandem contractions (>50bp) <br/>
 
 MUM&Co is able to detect: <br/>
-Deletions (novel and mobile), insertions (novel and mobile), tandem duplications and tandem contractions (>=50bp & <=150kb) <br/>
+Deletions, insertions, tandem duplications and tandem contractions (>=50bp & <=150kb) <br/>
 Inversions (>=1kb) and translocations (>=10kb)
 
 MUM&Co requires installation of MUMmer4 and samtools.<br/>
