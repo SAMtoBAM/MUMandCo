@@ -44,12 +44,13 @@ The last column in the TSV file contains notes. <br/>
 'complicated' : multiple calls within the same region; generally overlapping insertions and deletions <br/>
 'double' : several calls at the same coordinates; generally tandem duplications or contractions with multiple copy changes <br/>
 ']chrX:xxxxxx]' : a VCF inspired notation for the association of the translocation fragments with the other fragments <br/>
-e.g. for chr1 with its right boarder at 250000bp assocaited with chr2 at 100000bp; <br/>
+e.g. for chr1 with its right border at 250000bp assocaited with chr2 at 100000bp; <br/>
 the note would be as follows for chr 1: ']chr2:100000]'     and for chr2 : '[chr1:250000[' <br/>
+As such, each translocation fragment as called as an event, is now a breakend-like call and will be duplicated if both borders are involved in translocations <br\>
 
 VCF TRA EVENT: <br/>
 The later notation for the TSV file is currently being added to the alt column in the VCF for 'TRA' events. <br/>
-Therefore it is not a breakend (contains no nucleotide at edge and can contain multiple edges) but can be interpreted similarly <br/>
+Currently it is not a called a breakend site (contains no nucleotide at edge) but can be interpreted similarly <br/>
 
 Note: <br/>
 MUMmer4 is now required due to the hard wired thread option not available during alignment with MUMmer3 <br/>
