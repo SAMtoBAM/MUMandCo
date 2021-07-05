@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version="3.6"
+version="3.7"
 
 ##################################################################################
 ############################## EDIT PATHS AND NAMES ##############################
@@ -1242,7 +1242,7 @@ cat ${prefix}.SVs_all.tsv | awk '{if($6 != "transloc") print}' > ${prefix}.SVs_a
 cat ${prefix}.SVs_all.tsv | awk '{if($6 == "transloc") print}'  | sort -k2,2 -k8n -k7n | awk '{print $2}' | sort -u | while read chr
 do
 	cat ${prefix}.SVs_all.tsv |\
-		awk -v chr="$chr" '{if($2 == chr && $6 == "transloc" ) print}'  | sort -k2,2 -k8n -k7n | awk '{if(NR==1) {line=$0; prev=$1; pos=$4} else if(NR != "1" && mid != "T") {print line"\t]"$1":"$3"]"; mid="T"; line=$0; prev2=$1; pos2=$4 } else if(NR != "1" && mid == "T") {print line"\t["prev":"pos"[]"$1":"$3"]" ; prev=prev2; pos=pos2 ;  prev2=$1; pos2=$4; line=$0 }} END{print line"\t["prev":"pos"[" }'
+		awk -v chr="$chr" '{if($2 == chr && $6 == "transloc" ) print}'  | sort -k2,2 -k8n -k7n | awk '{if(NR==1) {line=$0; prev=$1; pos=$4} else if(NR != "1" && mid != "T") {print line"\t]"$1":"$3"]"; mid="T"; line=$0; prev2=$1; pos2=$4 } else if(NR != "1" && mid == "T") {print line"\t["prev":"pos"[\n"line"\t]"$1":"$3"]" ; prev=prev2; pos=pos2 ;  prev2=$1; pos2=$4; line=$0 }} END{print line"\t["prev":"pos"[" }'
 	done > ${prefix}.SVs_all.translocwithborder
 echo "ref_chr	query_chr	ref_start	ref_stop	size	SV_type	query_start	query_stop	info	" > $prefix.SVs_all.tsv
 cat ${prefix}.SVs_all.notransloc ${prefix}.SVs_all.translocwithborder | sort -k1,1 -k3V |\
@@ -1253,7 +1253,7 @@ cat ${prefix}.SVs_all.withfragment.tsv | awk '{if($6 != "transloc") print}' > ${
 cat ${prefix}.SVs_all.withfragment.tsv | awk '{if($6 == "transloc") print}'  | sort -k2,2 -k8n -k7n | awk '{print $2}' | sort -u | while read chr
 do
 	cat ${prefix}.SVs_all.withfragment.tsv |\
-		awk -v chr="$chr" '{if($2 == chr && $6 == "transloc" ) print}'  | sort -k2,2 -k8n -k7n | awk '{if(NR==1) {line=$0; prev=$1; pos=$4} else if(NR != "1" && mid != "T") {print line"\t]"$1":"$3"]"; mid="T"; line=$0; prev2=$1; pos2=$4 } else if(NR != "1" && mid == "T") {print line"\t["prev":"pos"[]"$1":"$3"]" ; prev=prev2; pos=pos2 ;  prev2=$1; pos2=$4; line=$0 }} END{print line"\t["prev":"pos"[" }'
+		awk -v chr="$chr" '{if($2 == chr && $6 == "transloc" ) print}'  | sort -k2,2 -k8n -k7n | awk '{if(NR==1) {line=$0; prev=$1; pos=$4} else if(NR != "1" && mid != "T") {print line"\t]"$1":"$3"]"; mid="T"; line=$0; prev2=$1; pos2=$4 } else if(NR != "1" && mid == "T") {print line"\t["prev":"pos"[\n"line"\t]"$1":"$3"]" ; prev=prev2; pos=pos2 ;  prev2=$1; pos2=$4; line=$0 }} END{print line"\t["prev":"pos"[" }'
 	done > ${prefix}.SVs_all.withfragment.translocwithborder
 echo "ref_chr	query_chr	ref_start	ref_stop	size	SV_type	query_start	query_stop	fragments	info" > $prefix.SVs_all.withfragment.tsv
 cat ${prefix}.SVs_all.withfragment.notransloc ${prefix}.SVs_all.withfragment.translocwithborder | sort -k1,1 -k3V |\
