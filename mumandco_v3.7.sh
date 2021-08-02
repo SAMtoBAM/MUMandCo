@@ -1303,7 +1303,7 @@ do
 		echo $variant | awk '{if($6 == "deletion") {print $1"\t"$3"\t.\t"$9"\t<DEL>\t.\tPASS\tEND="$4";SVLEN=-"$5";SVTYPE=DEL;qCHR="$2";qSTART="$7";qEND="$8"\tGT\t1/1"}\
 								if($6 == "insertion") {print $1"\t"$3"\t.\t<INS>\t"$9"\t.\tPASS\tEND="$4";SVLEN="$5";SVTYPE=INS;qCHR="$2";qSTART="$7";qEND="$8"\tGT\t1/1"}\
 								if($6 == "duplication") {print $1"\t"$3"\t.\t"$9"\t<DUP>\t.\tPASS\tEND="$4";SVLEN="$5";SVTYPE=DUP;qCHR="$2";qSTART="$7";qEND="$8"\tGT\t1/1"}\
-								if($6 == "contraction") {print $1"\t"$3"\t.\t"$9"\t<CONTR>\t.\tPASS\tEND="$4";SVLEN="$5";SVTYPE=DUP;qCHR="$2";qSTART="$7";qEND="$8"\tGT\t1/1"}\
+								if($6 == "contraction") {print $1"\t"$3"\t.\t"$9"\t<CONTR>\t.\tPASS\tEND="$4";SVLEN="$5";SVTYPE=CONTR;qCHR="$2";qSTART="$7";qEND="$8"\tGT\t1/1"}\
 								if($6 == "inversion") {print $1"\t"$3"\t.\t"$9"\t<INV>\t.\tPASS\tEND="$4";SVLEN="$5";SVTYPE=INV;qCHR="$2";qSTART="$7";qEND="$8"\tGT\t1/1"}\
 								if($6 == "transloc") {print $1"\t"$3"\t.\t"$9"\t"$10"\t.\tPASS\tEND="$4";SVLEN="$5";SVTYPE=TRA;qCHR="$2";qSTART="$7";qEND="$8"\tGT\t1/1"}}' >> ${prefix}.SVs_all.vcf
 done
