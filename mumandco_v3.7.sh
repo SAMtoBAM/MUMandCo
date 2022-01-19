@@ -1291,9 +1291,13 @@ echo "##INFO=<ID=qSTART,Number=1,Type=Integer,Description="Start position in que
 echo "##INFO=<ID=qEND,Number=1,Type=Integer,Description="End position in query genome">" >> ${prefix}.SVs_all.vcf
 echo "##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">" >> ${prefix}.SVs_all.vcf
 echo "##ALT=<ID=DEL,Description="Deletion">" >> ${prefix}.SVs_all.vcf
+echo "##ALT=<ID=DELmobile,Description="Deletion of mobile material">" >> ${prefix}.SVs_all.vcf
+echo "##ALT=<ID=DELnovel,Description="Deletion of novel material">" >> ${prefix}.SVs_all.vcf
 echo "##ALT=<ID=DUP:TANDEM,Description="Tandem Duplication">" >> ${prefix}.SVs_all.vcf
 echo "##ALT=<ID=CONTR,Description="Contraction">" >> ${prefix}.SVs_all.vcf
-echo "##ALT=<ID=INS,Description="Insertion of novel sequence">" >> ${prefix}.SVs_all.vcf
+echo "##ALT=<ID=INS,Description="Insertion">" >> ${prefix}.SVs_all.vcf
+echo "##ALT=<ID=INSmobile,Description="Insertion of mobile material">" >> ${prefix}.SVs_all.vcf
+echo "##ALT=<ID=INSnovel,Description="Insertion of novel material">" >> ${prefix}.SVs_all.vcf
 echo "##ALT=<ID=INV,Description="Inversion">" >> ${prefix}.SVs_all.vcf
 echo "##ALT=<ID=TRA,Description="Region involved in translocation alternative to a breakend position">" >> ${prefix}.SVs_all.vcf
 echo "#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	$prefix" >> ${prefix}.SVs_all.vcf
@@ -1301,7 +1305,11 @@ cat ${prefix}.SVs_all.withfragment.tsv | tail -n +2 | while read variant
 do
 	##split up the line into individual features to fit it into the VCF format
 		echo $variant | awk '{if($6 == "deletion") {print $1"\t"$3"\t.\t"$9"\t<DEL>\t.\tPASS\tEND="$4";SVLEN=-"$5";SVTYPE=DEL;qCHR="$2";qSTART="$7";qEND="$8"\tGT\t1/1"}\
+								if($6 == "deletion_mobile") {print $1"\t"$3"\t.\t"$9"\t<DELmobile>\t.\tPASS\tEND="$4";SVLEN=-"$5";SVTYPE=DEL;qCHR="$2";qSTART="$7";qEND="$8"\tGT\t1/1"}\
+								if($6 == "deletion_novel") {print $1"\t"$3"\t.\t"$9"\t<DELnovel>\t.\tPASS\tEND="$4";SVLEN=-"$5";SVTYPE=DEL;qCHR="$2";qSTART="$7";qEND="$8"\tGT\t1/1"}\
 								if($6 == "insertion") {print $1"\t"$3"\t.\t<INS>\t"$9"\t.\tPASS\tEND="$4";SVLEN="$5";SVTYPE=INS;qCHR="$2";qSTART="$7";qEND="$8"\tGT\t1/1"}\
+								if($6 == "insertion_mobile") {print $1"\t"$3"\t.\t<INSmobile>\t"$9"\t.\tPASS\tEND="$4";SVLEN="$5";SVTYPE=INS;qCHR="$2";qSTART="$7";qEND="$8"\tGT\t1/1"}\
+								if($6 == "insertion_novel") {print $1"\t"$3"\t.\t<INSnovel>\t"$9"\t.\tPASS\tEND="$4";SVLEN="$5";SVTYPE=INS;qCHR="$2";qSTART="$7";qEND="$8"\tGT\t1/1"}\
 								if($6 == "duplication") {print $1"\t"$3"\t.\t"$9"\t<DUP>\t.\tPASS\tEND="$4";SVLEN="$5";SVTYPE=DUP;qCHR="$2";qSTART="$7";qEND="$8"\tGT\t1/1"}\
 								if($6 == "contraction") {print $1"\t"$3"\t.\t"$9"\t<CONTR>\t.\tPASS\tEND="$4";SVLEN="$5";SVTYPE=CONTR;qCHR="$2";qSTART="$7";qEND="$8"\tGT\t1/1"}\
 								if($6 == "inversion") {print $1"\t"$3"\t.\t"$9"\t<INV>\t.\tPASS\tEND="$4";SVLEN="$5";SVTYPE=INV;qCHR="$2";qSTART="$7";qEND="$8"\tGT\t1/1"}\
