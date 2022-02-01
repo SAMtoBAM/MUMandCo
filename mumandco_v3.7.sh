@@ -40,6 +40,10 @@ cleanup="yes"
 #subtelo_coords="subtelomeric_regions_file.csv"
 #DNA_filter="no"
 
+#default values, unless denoted when running MUM&Co
+threads="1"
+
+
 while [[ $# -gt 0 ]]
 do
 key="$1"
@@ -73,8 +77,6 @@ case "$key" in
 	esac
 done
 
-#default values, unless denoted when running MUM&Co
-if [[ $threads == "" ]] ; then threads="1" ; fi
 
 ###################################################################################
 ###################################################################################
