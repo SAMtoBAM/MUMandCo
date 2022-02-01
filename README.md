@@ -2,7 +2,7 @@
 
 MUM&Co is a simple bash script that uses Whole Genome Alignment information provided by MUMmer (v4) to detect variants. <br/>
 VERSION >= 3 UPDATE <br/>
-Only uses MUMmer4 now and requires the thread count option <br/>
+Only uses MUMmer4 now and contains a thread count option <br/>
 Contains a VCF output file with all calls currently being imprecise <br/>
 Contains another output file containing the calls alongside the respective DNA impacted <br/>
 This new step requires samtools installation <br/>
@@ -14,6 +14,7 @@ Inversions (>=1kb) and translocations (>=10kb)
 
 MUM&Co requires installation of MUMmer4 and samtools.<br/>
 MUM&Co will look for the MUMmer toolkit's and samtools scripts path using 'which xxxxx'.<br/>
+An error warning will print and the script will stop if these paths cannot be found <br/>
 This path can be editted directly in the script if required.
 
 In order to help with downstream analysis: <br/>
@@ -25,12 +26,14 @@ Options: <br/>
          -r or --reference_genome          path to reference genome
          -q or --query_genome              path to query genome
          -g or --genome_size               size of genome
-         -o or --output                    output prefix
-         -t or --threads                   thread number
+         -o or --output                    output prefix (default: mumandco)
+         -t or --threads                   thread number (default: 1)
+         -ml or --minlen                   minimum length of alignments (default: 50bp)
+         -b or --blast                     adds the blast option to identify is insertions or deletions look repetitive or novel
 
-Test run script (keep order of options): <br/>
+Test run script: <br/>
          
-         bash mumandco_v*.sh -r ./yeast.tidy.fa -q ./yeast_tidy_DEL100.fa -g 12500000 -o DEL100_test -t 2
+         bash mumandco_v*.sh -r ./yeast.tidy.fa -q ./yeast_tidy_DEL100.fa -g 12500000 -o DEL100_test -t 2 -b
 
 OUTPUT FOLDER:<br/>
 Folder with alignments used for SV detection<br/>
@@ -54,9 +57,7 @@ Currently it is not a called a breakend site (contains no nucleotide at edge) bu
 
 Note: <br/>
 MUMmer4 is now required due to the hard wired thread option not available during alignment with MUMmer3 <br/>
-Additionally there is an option to search for insertion and deletion events in the reference in order to label them as either mobile or novel events.<br/>
-This requires BLAST installation.<br/>
-In order to use this feature, edit the bash script to change 'blast_step="no"' to 'yes'
+The blast option (-b /--blast) using BLAST to search for insertion and deletion events in the reference/query in order to label them as either mobile or novel events.<br/>
 
 
 Reference:<br/>
