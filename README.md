@@ -19,7 +19,7 @@ This path can be editted directly in the script if required.
 
 In order to help with downstream analysis: <br/>
 Renaming and re-orientation of the query genome contigs to correspond to their reference counterparts <br/>
-Tools such as RaGOO and Ragout can do this alongside scaffolding of contigs (this is not currently recommended for short-read based assemblies).<br/>
+Tools such as RaGOO and Ragout can do this alongside scaffolding of contigs (this is not currently recommended for short-read based assemblies) <br/>
 
 Options: <br/>
 
@@ -36,8 +36,8 @@ Test run script: <br/>
          bash mumandco_v*.sh -r ./yeast.tidy.fa -q ./yeast_tidy_DEL100.fa -g 12500000 -o DEL100_test -t 2 -b
 
 OUTPUT FOLDER:<br/>
-Folder with alignments used for SV detection<br/>
-Txt file with summary of SVs detected<br/>
+Folder with alignments used for SV detection <br/>
+Txt file with summary of SVs detected <br/>
 TSV file with all the detected SVs <br/>
 TSV file with all detected SVs plus the DNA associated with the event (all from reference except insertions) <br/>
 VCF file with all calls currently being imprecise <br/>
@@ -49,7 +49,7 @@ The last column in the TSV file contains notes. <br/>
 ']chrX:xxxxxx]' : a VCF inspired notation for the association of the translocation fragments with the other fragments <br/>
 e.g. for chr1 with its right border at 250000bp assocaited with chr2 at 100000bp; <br/>
 the note would be as follows for chr 1: ']chr2:100000]'     and for chr2 : '[chr1:250000[' <br/>
-As such, each translocation fragment as called as an event, is now a breakend-like call and will be duplicated if both borders are involved in translocations <br\>
+As such, each translocation fragment as called as an event, is now a breakend-like call and will be duplicated if both borders are involved in translocations <br/>
 
 VCF TRA EVENT: <br/>
 The later notation for the TSV file is currently being added to the alt column in the VCF for 'TRA' events. <br/>
