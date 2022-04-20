@@ -1163,6 +1163,8 @@ then
 	$SAMTOOLS faidx $query_assembly
 	$BLASTDB -in $reference_assembly -input_type fasta -parse_seqids -dbtype nucl
 	touch $prefix.blast_in
+	touch $prefix.insertion_blast
+	touch $prefix.deletion_blast
 	
 	##GET FILE WITH JUST INSERTIONS OR DELETIONS##
 	cat $prefix.filteredcalls | awk '{if($6~"insertion") print $0}' > $prefix.insertions
