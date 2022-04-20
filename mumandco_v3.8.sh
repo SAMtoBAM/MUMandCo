@@ -1165,6 +1165,10 @@ then
 	touch $prefix.blast_in
 	touch $prefix.insertion_blast
 	touch $prefix.deletion_blast
+	touch query_segment.fa
+	touch ref_segment.fa
+	touch temp.blast1
+	touch temp.blast2
 	
 	##GET FILE WITH JUST INSERTIONS OR DELETIONS##
 	cat $prefix.filteredcalls | awk '{if($6~"insertion") print $0}' > $prefix.insertions
