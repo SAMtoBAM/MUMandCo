@@ -1230,7 +1230,6 @@ then
 	##combine new INDELS labelled SVs with other calls again##
 
 	cat $prefix.filteredcalls | awk '{if($6!="insertion" && $6!="deletion") print $0}' > $prefix.noINDEL
-	echo "ref_chr	query_chr	ref_start	ref_stop	size	SV_type	query_start	query_stop" > $prefix.SVs_all.tsv
 	cat $prefix.insertion_blast $prefix.deletion_blast $prefix.noINDEL | sort -k1,1 -k3V >> $prefix.SVs_all.tsv
 	
 	rm query_segment.fa
@@ -1282,13 +1281,13 @@ echo ""
 
 ##adding to file without fragment added
 ##also reorientating the translocation fragments with the opposite sense to the ref after identifying the correct bordering fragment
-cat ${prefix}.SVs_all.tsv | awk '{if($6 != "transloc") print}' > ${prefix}.SVs_all.notransloc
-cat ${prefix}.SVs_all.tsv | awk '{if($6 == "transloc") print}'  | sort -k2,2 -k8n -k7n | awk '{print $2}' | sort -u | while read chr
+cat ${prefix}.SVs_all.tsv  | awk '{if($6 != "transloc") print}' > ${prefix}.SVs_all.notransloc
+cat ${prefix}.SVs_all.tsv  | awk '{if($6 == "transloc") print}'  | sort -k2,2 -k8n -k7n | awk '{print $2}' | sort -u | while read chr
 do
 	cat ${prefix}.SVs_all.tsv |\
 		awk -v chr="$chr" '{if($2 == chr && $6 == "transloc" ) print}'  | sort -k2,2 -k8n -k7n | awk '{if(NR==1) {line=$0; prev=$1; pos=$4} else if(NR != "1" && mid != "T") {print line"\t]"$1":"$3"]"; mid="T"; line=$0; prev2=$1; pos2=$4 } else if(NR != "1" && mid == "T") {print line"\t["prev":"pos"[\n"line"\t]"$1":"$3"]" ; prev=prev2; pos=pos2 ;  prev2=$1; pos2=$4; line=$0 }} END{print line"\t["prev":"pos"[" }'
 	done > ${prefix}.SVs_all.translocwithborder
-echo "ref_chr	query_chr	ref_start	ref_stop	size	SV_type	query_start	query_stop	info	" > $prefix.SVs_all.tsv
+echo "ref_chr	query_chr	ref_start	ref_stop	size	SV_type	query_start	query_stop	info" > $prefix.SVs_all.tsv
 cat ${prefix}.SVs_all.notransloc ${prefix}.SVs_all.translocwithborder | sort -k1,1 -k3V |\
 awk '{if($3 > $4) {print $1"\t"$2"\t"$4"\t"$3"\t"$5"\t"$6"\t"$7"\t"$8"\t"$9} else {print $0}}'>> ${prefix}.SVs_all.tsv
 
