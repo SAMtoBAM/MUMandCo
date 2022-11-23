@@ -1,6 +1,0 @@
-## This the the way datasets were merged for O'Donnell et al. 2022 in order to create a non-redundant dataset
-## In this example most strains contain multiple genomes per strain and therefore in order to verify events, each needed to be found at least twice
-## This lead to ~95% of all variants being validated for strains with multiple genomes
-## For those strains with only a single publically available genomes, fewer events were validated with the proportion validated depending on the genetic distance of the closest strain
-
-
