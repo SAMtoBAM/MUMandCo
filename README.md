@@ -1,5 +1,8 @@
 ![alt text](https://github.com/SAMtoBAM/MUMandCo/blob/master/MUM%26Co2.png)
 
+v3.8 release : [![DOI](https://zenodo.org/badge/187255031.svg)](https://zenodo.org/badge/latestdoi/187255031)
+
+
 MUM&Co is a simple bash script that uses Whole Genome Alignment information provided by MUMmer (v4) to detect variants. <br/>
 VERSION >= 3 UPDATE <br/>
 Only uses MUMmer4 now and contains a thread count option <br/>
