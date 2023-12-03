@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-version="3.8"
+version="3.9"
 
 ##################################################################################
 ############################## EDIT PATHS AND NAMES ##############################
@@ -1318,13 +1318,13 @@ echo "##reference=${reference_assembly}" >> ${prefix}.SVs_all.vcf
 grep ">" ${reference_assembly} | sed 's/>//g' | while read chr
 do
 	length=$( cat ${reference_assembly} | awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);} END {printf("\n");}' | grep "\S" | grep -x -A 1 ">$chr" | grep -v '>' | awk '{print length}' )
-	echo "##contig=<ID=${chr},length=${length}" >> ${prefix}.SVs_all.vcf
+	echo "##contig=<ID=${chr},length=${length}>" >> ${prefix}.SVs_all.vcf
 done
 echo "##query=${query_assembly}" >> ${prefix}.SVs_all.vcf
 grep ">" ${query_assembly} | sed 's/>//g' | while read chr
 do
 	length=$( cat ${query_assembly} | awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);} END {printf("\n");}' | grep "\S" | grep -x -A 1 ">$chr" | grep -v '>' | awk '{print length}' )
-	echo "##query_contig=<ID=${chr},length=${length}" >> ${prefix}.SVs_all.vcf
+	echo "##query_contig=<ID=${chr},length=${length}>" >> ${prefix}.SVs_all.vcf
 done
 echo "##INFO=<ID=END,Number=1,Type=Integer,Description="End position in the reference genome">" >> ${prefix}.SVs_all.vcf
 echo "##INFO=<ID=SVLEN,Number=.,Type=Integer,Description="Difference in length between REF and ALT alleles">" >> ${prefix}.SVs_all.vcf
