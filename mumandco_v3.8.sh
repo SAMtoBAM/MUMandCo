@@ -45,6 +45,7 @@ prefix="mumandco"
 threads="1"
 minlen="50"
 blast_step="no"
+output="mumandco_output"
 
 
 
@@ -68,7 +69,7 @@ case "$key" in
 	shift
 	shift
 	;;
-	-o|--output)
+	-p|--prefix)
 	prefix="$2"
 	shift
 	shift
@@ -86,7 +87,37 @@ case "$key" in
 	-b|--blast)
 	blast_step="yes"
 	shift
+ 	shift
 	;;
+	-h|--help)
+	echo "
+	
+	mumandco (version: ${version})
+ 
+	mumandco_v*.sh -r reference.fa -q query.fa -g 12500000
+
+	 Required inputs:
+	-r | --reference_genome		Fasta file containing an assembly
+	-q | --query_genome			Fasta file containing another assembly
+	-g | --genome_size			Rough estimation of genome size for both reference and query to determine alignment parameters
+
+	Recommended inputs:
+	-t | --threads				Number of threads for alignment (default: 1)
+	-m | --minlen				Minimum length of alignments in basepairs (Default: 50)
+
+	Optional parameters:
+	-p | --prefix				Prefix for output files and name of output folder ('prefix'_output) (Default: mumandco)
+	-b | --blast				Adds the blast option to identify is insertions or deletions look repetitive or novel (takes significantly longer)
+
+
+	"
+	exit
+	;;
+	*)  # catch invalid args
+    echo "ERROR: Unknown option: '$1'"
+    echo "Run 'mumandco_v*.sh -h' to see valid options"
+    exit 1
+    ;;
 	esac
 done
 
@@ -96,7 +127,9 @@ done
 [[ $query_assembly == "" ]] && echo "ERROR: Path to query genome not found, assign using -q" && exit
 [[ $genome_size == "" ]] && echo "ERROR: genome size not found, assign using -g" && exit
 #uses default 'mumandco' prefix for output and creates error and exits if output directory already exists
-[[ $prefix == "mumandco" ]] && echo "WARNING: No option for output found, using mumandco"
+[[ $prefix == "mumandco" ]] && echo "WARNING: No option for prefix found, using mumandco"
+[[ $threads == "1" ]] && echo "WARNING: No option for threads detected, using 1 thread as default"
+
 [[ -d $prefix"_output" ]] && echo "ERROR: Output directory already exists, please remove or set alternate output" && exit
 
 #if blast option is set, check to see if samtools and blast are installed and in path. Exit if not found
