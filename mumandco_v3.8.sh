@@ -8,12 +8,13 @@ version="3.8"
 ##################################################################################
 
 ### Paths to Additional tools/scripts and check if they are installed and found in path ###
+### Paths to Additional tools/scripts and check if they are installed and found in path ###
+[[ $(which nucmer) == "" ]] && echo "ERROR: Cannot find nucmer script using 'which nucmer', make sure MUMmer (=>V4) is installed and in path" && exit
+[[ $(which delta-filter) == "" ]] && echo "ERROR: Cannot find delta-filter script using 'which delta-filter', make sure MUMmer (=>V4) is installed and in path" && exit
+[[ $(which show-coords) == "" ]] && echo "ERROR: Cannot find dnadiff script using 'which dnadiff', make sure MUMmer (=>V4) is installed and in path" && exit
 NUCMER=$(which nucmer)
-[[ $NUCMER == "" ]] && echo "ERROR: Cannot find nucmer script using 'which nucmer', make sure MUMmer (=>V4) is installed and in path" && exit
 DELTAFILTER=$(which delta-filter)
-[[ $NUCMER == "" ]] && echo "ERROR: Cannot find delta-filter script using 'which delta-filter', make sure MUMmer (=>V4) is installed and in path" && exit
 SHOWCOORDS=$(which show-coords)
-[[ $NUCMER == "" ]] && echo "ERROR: Cannot find dnadiff script using 'which dnadiff', make sure MUMmer (=>V4) is installed and in path" && exit
 
 ##Genomes for alignments##
 #reference_assembly="./yeast.tidy.fa"
