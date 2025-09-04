@@ -7,15 +7,6 @@ version="3.8"
 ############################## EDIT PATHS AND NAMES ##############################
 ##################################################################################
 
-### Paths to Additional tools/scripts and check if they are installed and found in path ###
-### Paths to Additional tools/scripts and check if they are installed and found in path ###
-[[ $(which nucmer) == "" ]] && echo "ERROR: Cannot find nucmer script using 'which nucmer', make sure MUMmer (=>V4) is installed and in path" && exit
-[[ $(which delta-filter) == "" ]] && echo "ERROR: Cannot find delta-filter script using 'which delta-filter', make sure MUMmer (=>V4) is installed and in path" && exit
-[[ $(which show-coords) == "" ]] && echo "ERROR: Cannot find dnadiff script using 'which dnadiff', make sure MUMmer (=>V4) is installed and in path" && exit
-NUCMER=$(which nucmer)
-DELTAFILTER=$(which delta-filter)
-SHOWCOORDS=$(which show-coords)
-
 ##Genomes for alignments##
 #reference_assembly="./yeast.tidy.fa"
 #genome_size=12500000
@@ -97,19 +88,20 @@ case "$key" in
  
 	mumandco_v*.sh -r reference.fa -q query.fa -g 12500000
 
-	 Required inputs:
+	Required inputs:
 	-r | --reference_genome		Fasta file containing an assembly
-	-q | --query_genome			Fasta file containing another assembly
-	-g | --genome_size			Rough estimation of genome size for both reference and query to determine alignment parameters
+	-q | --query_genome		Fasta file containing another assembly
+	-g | --genome_size		Rough estimation of genome size for both reference and query to determine alignment parameters
 
 	Recommended inputs:
-	-t | --threads				Number of threads for alignment (default: 1)
-	-ml | --minlen				Minimum length of alignments in basepairs (Default: 50)
+	-t | --threads			Number of threads for alignment (default: 1)
+	-ml | --minlen			Minimum length of alignments in basepairs (Default: 50)
 
 	Optional parameters:
-	-p | --prefix				Prefix for output files and name of output folder ('prefix'_output) (Default: mumandco)
-	-b | --blast				Adds the blast option to identify is insertions or deletions look repetitive or novel (takes significantly longer)
-	-h | --help					Print this help message
+	-p | --prefix			Prefix for output files and name of output folder ('prefix'_output) (Default: mumandco)
+	-b | --blast			Adds the blast option to identify is insertions or deletions look repetitive or novel (takes significantly longer)
+	-h | --help			Print this help message
+
 
 
 	"
@@ -133,6 +125,15 @@ done
 [[ $threads == "1" ]] && echo "WARNING: No option for threads detected, using 1 thread as default"
 
 [[ -d $prefix"_output" ]] && echo "ERROR: Output directory already exists, please remove or set alternate output" && exit
+
+### Paths to Additional tools/scripts and check if they are installed and found in path ###
+[[ $(which nucmer) == "" ]] && echo "ERROR: Cannot find nucmer script using 'which nucmer', make sure MUMmer (=>V4) is installed and in path" && exit
+[[ $(which delta-filter) == "" ]] && echo "ERROR: Cannot find delta-filter script using 'which delta-filter', make sure MUMmer (=>V4) is installed and in path" && exit
+[[ $(which show-coords) == "" ]] && echo "ERROR: Cannot find dnadiff script using 'which dnadiff', make sure MUMmer (=>V4) is installed and in path" && exit
+NUCMER=$(which nucmer)
+DELTAFILTER=$(which delta-filter)
+SHOWCOORDS=$(which show-coords)
+
 
 #if blast option is set, check to see if samtools and blast are installed and in path. Exit if not found
 if [[ ${blast_step} == "yes" ]]
