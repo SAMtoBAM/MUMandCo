@@ -103,11 +103,12 @@ case "$key" in
 
 	Recommended inputs:
 	-t | --threads				Number of threads for alignment (default: 1)
-	-m | --minlen				Minimum length of alignments in basepairs (Default: 50)
+	-ml | --minlen				Minimum length of alignments in basepairs (Default: 50)
 
 	Optional parameters:
 	-p | --prefix				Prefix for output files and name of output folder ('prefix'_output) (Default: mumandco)
 	-b | --blast				Adds the blast option to identify is insertions or deletions look repetitive or novel (takes significantly longer)
+	-h | --help					Print this help message
 
 
 	"
