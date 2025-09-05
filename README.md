@@ -27,17 +27,23 @@ Tools such as RaGOO and Ragout can do this alongside scaffolding of contigs (thi
 
 Options: <br/>
 
-         -r or --reference_genome          path to reference genome
-         -q or --query_genome              path to query genome
-         -g or --genome_size               size of genome
-         -o or --output                    output prefix (default: mumandco)
-         -t or --threads                   thread number (default: 1)
-         -ml or --minlen                   minimum length of alignments (default: 50bp)
-         -b or --blast                     adds the blast option to identify is insertions or deletions look repetitive or novel
+    Required inputs:
+	   -r | --reference_genome		Fasta file containing an assembly
+	   -q | --query_genome		    Fasta file containing another assembly
+	   -g | --genome_size		    Rough estimation of genome size for both reference and query to determine alignment parameters
+
+	   Recommended inputs:
+	   -t | --threads			    Number of threads for alignment (default: 1)
+	   -ml | --minlen			    Minimum length of alignments in basepairs (Default: 50)
+
+	   Optional parameters:
+	   -p | --prefix			    Prefix for output files and name of output folder ('prefix'_output) (Default: mumandco)
+	   -b | --blast			        Adds the blast option to identify is insertions or deletions look repetitive or novel (takes significantly longer)
+	   -h | --help			        Print this help message
 
 Test run script: <br/>
          
-         bash mumandco_v*.sh -r ./yeast.tidy.fa -q ./yeast_tidy_DEL100.fa -g 12500000 -o DEL100_test -t 2 -b
+    mumandco.sh -r reference.fa -q query.fa -g 12500000
 
 OUTPUT FOLDER:<br/>
 Folder with alignments used for SV detection <br/>
