@@ -1,5 +1,5 @@
  <p align="center" >
-    <img src="https://github.com/SAMtoBAM/MUMandCo/blob/master/logo.svg" width=70%>
+    <img src="https://github.com/SAMtoBAM/MUMandCo/blob/master/logo/logo.svg" width=70%>
 </p>
 
 v3.8 release : [![DOI](https://zenodo.org/badge/187255031.svg)](https://zenodo.org/badge/latestdoi/187255031)
