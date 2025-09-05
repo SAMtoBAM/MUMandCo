@@ -86,7 +86,7 @@ case "$key" in
 	
 	mumandco (version: ${version})
  
-	mumandco_v*.sh -r reference.fa -q query.fa -g 12500000
+	mumandco.sh -r reference.fa -q query.fa -g 12500000
 
 	Required inputs:
 	-r | --reference_genome		Fasta file containing an assembly
