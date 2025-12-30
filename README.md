@@ -4,7 +4,7 @@
 
 v3.8 release : [![DOI](https://zenodo.org/badge/187255031.svg)](https://zenodo.org/badge/latestdoi/187255031)
 
-MUM&Co is a simple bash script that uses Whole Genome Alignment information provided by MUMmer (v4) to detect variants. <br/>
+MUM&Co uses Whole Genome Alignment information provided by MUMmer (v4) to detect structural variants. <br/>
 Contains a VCF output file with all calls currently being imprecise <br/>
 Contains another output file containing the calls alongside the respective DNA impacted <br/>
 This new step requires samtools installation <br/>
