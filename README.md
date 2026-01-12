@@ -2,7 +2,7 @@
     <img src="https://github.com/SAMtoBAM/MUMandCo/blob/master/logo/logo.svg" width=70%>
 </p>
 
-v3.8 release : [![DOI](https://zenodo.org/badge/187255031.svg)](https://zenodo.org/badge/latestdoi/187255031)
+[![DOI](https://zenodo.org/badge/187255031.svg)](https://zenodo.org/badge/latestdoi/187255031)
 [![Citation Badge](https://api.juleskreuer.eu/citation-badge.php?doi=10.1093/bioinformatics/btaa115)](https://juleskreuer.eu/projects/citation-badge)
 
 
