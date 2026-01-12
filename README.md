@@ -3,6 +3,8 @@
 </p>
 
 v3.8 release : [![DOI](https://zenodo.org/badge/187255031.svg)](https://zenodo.org/badge/latestdoi/187255031)
+[![Citation Badge](https://api.juleskreuer.eu/citation-badge.php?doi=10.1093/bioinformatics/btaa115)](https://juleskreuer.eu/projects/citation-badge)
+
 
 MUM&Co uses Whole Genome Alignment information provided by MUMmer (v4) to detect structural variants. <br/>
 Contains a VCF output file with all calls currently being imprecise <br/>
